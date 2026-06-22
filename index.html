@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio - Software Engineer</title>
+    <title>Dylan - Full-Stack Engineer | Portfolio</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:wght@300;400;500&display=swap"
       rel="stylesheet"
@@ -28,6 +28,8 @@
         --accent: #1d9e75;
         --accent-light: #5dcaa5;
         --accent-bg: rgba(29, 158, 117, 0.1);
+        --danger: #e05555;
+        --danger-bg: rgba(224, 85, 85, 0.1);
       }
 
       html {
@@ -118,6 +120,75 @@
         overflow: hidden;
       }
 
+      /* ---- HERO LAYOUT ---- */
+      .hero-inner {
+        display: flex;
+        align-items: center; /* vertically center both columns */
+        gap: 4rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+        z-index: 1; /* above the background grid/glow */
+      }
+
+      .hero-content {
+        flex: 1; /* take up remaining space */
+      }
+
+      .hero-image {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Profile photo circle */
+      .profile-circle {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid var(--border-hover);
+        box-shadow: 0 0 60px rgba(29, 158, 117, 0.08);
+        background: var(--bg3);
+      }
+
+      .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* crops nicely to circle */
+        display: block;
+      }
+
+      /* On mobile: stack vertically, image on top */
+      @media (max-width: 700px) {
+        .hero-inner {
+          flex-direction: column-reverse; /* image above text */
+          gap: 2rem;
+        }
+
+        .hero-content {
+          text-align: center;
+        }
+
+        .hero-tag {
+          justify-content: center;
+        }
+
+        .hero-btns {
+          justify-content: center;
+        }
+
+        .hero-stats {
+          justify-content: center;
+        }
+
+        .profile-circle {
+          width: 160px;
+          height: 160px;
+        }
+      }
       .hero-grid-bg {
         position: absolute;
         inset: 0;
@@ -205,6 +276,7 @@
         border: none;
         border-radius: 4px;
         text-decoration: none;
+        cursor: pointer;
         transition:
           opacity 0.2s,
           transform 0.15s;
@@ -213,6 +285,12 @@
       .btn-primary:hover {
         opacity: 0.85;
         transform: translateY(-1px);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
       }
 
       .btn-secondary {
@@ -507,98 +585,328 @@
         font-weight: 500;
       }
 
-      .timeline {
-        position: relative;
+      /* ---- EXPERIENCE (replaces old timeline) ---- */
+      .experience-list {
         display: flex;
         flex-direction: column;
         gap: 0;
-        padding-left: 1.5rem;
       }
 
-      .timeline::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 14px;
-        width: 2px;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.12);
-      }
-
-      .timeline-item {
+      .exp-card {
         position: relative;
-        display: grid;
-        grid-template-columns: 90px 1fr;
-        gap: 1rem;
         padding: 1.5rem 0;
         border-bottom: 0.5px solid var(--border);
+        transition: background 0.2s;
       }
 
-      .timeline-item::before {
-        content: "";
-        position: absolute;
-        left: -5px;
-        top: 1.5rem;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: var(--accent);
-        border: 2px solid var(--bg);
-      }
-
-      .timeline-item:first-child {
+      .exp-card:first-child {
         padding-top: 0;
       }
 
-      .timeline-year {
+      .exp-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 0.6rem;
+        flex-wrap: wrap;
+      }
+
+      .exp-year {
         font-family: "DM Mono", monospace;
-        font-size: 11px;
-        color: var(--accent);
-        letter-spacing: 1px;
+        font-size: 10px;
+        letter-spacing: 2px;
         text-transform: uppercase;
+        color: var(--accent);
+        background: var(--accent-bg);
+        padding: 3px 10px;
+        border-radius: 3px;
+        white-space: nowrap;
       }
 
-      .timeline-role {
-        font-size: 15px;
+      .exp-role {
+        font-size: 17px;
         font-weight: 700;
+        letter-spacing: -0.3px;
       }
 
-      .timeline-place {
+      .exp-company {
         font-family: "DM Mono", monospace;
         font-size: 11px;
         color: var(--muted);
-        margin-top: 0.5rem;
-        line-height: 1.65;
+        margin-bottom: 0.75rem;
+        display: block;
       }
 
-      .timeline-intro {
+      .exp-details {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 0.75rem 0;
+      }
+
+      .exp-details li {
+        font-size: 13px;
         color: var(--muted);
-        font-size: 14px;
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
+        line-height: 1.7;
+        padding-left: 18px;
+        position: relative;
+        margin-bottom: 0.35rem;
       }
 
-      /* ---- CONTACT ---- */
+      .exp-details li::before {
+        content: "▹";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--accent);
+        font-size: 11px;
+      }
+
+      .exp-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .exp-tech-tag {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        padding: 3px 9px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 0.5px solid var(--border);
+        border-radius: 3px;
+        color: var(--muted);
+      }
+
+      /* ---- CONTACT FORM ---- */
       #contact {
         border-top: 0.5px solid var(--border);
         text-align: center;
-        max-width: 600px;
+        max-width: 620px;
         margin: 0 auto;
         padding: 6rem 3rem;
       }
 
-      .contact-email {
-        font-size: clamp(24px, 4vw, 40px);
-        font-weight: 800;
-        letter-spacing: -1px;
-        color: var(--text);
-        text-decoration: none;
-        display: block;
-        margin: 1.5rem 0;
-        transition: color 0.2s;
+      .contact-form-wrapper {
+        text-align: left;
+        margin-top: 2rem;
       }
 
-      .contact-email:hover {
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+
+      .form-label {
+        display: block;
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 12px 16px;
+        background: var(--bg2);
+        border: 0.5px solid var(--border);
+        border-radius: 6px;
+        color: var(--text);
+        font-family: "Syne", sans-serif;
+        font-size: 15px;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        outline: none;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.1);
+      }
+
+      .form-input.error,
+      .form-textarea.error {
+        border-color: var(--danger);
+        box-shadow: 0 0 0 3px var(--danger-bg);
+      }
+
+      .form-textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      .form-error-msg {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        color: var(--danger);
+        margin-top: 0.4rem;
+        display: none;
+      }
+
+      .form-error-msg.visible {
+        display: block;
+      }
+
+      .form-submit-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .btn-submit {
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 1px;
+        padding: 13px 32px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.15s;
+        position: relative;
+        min-width: 140px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .btn-submit:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+      }
+
+      .btn-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Loading spinner */
+      .spinner {
+        display: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+
+      .btn-submit.loading .spinner {
+        display: inline-block;
+      }
+
+      .btn-submit.loading .btn-submit-text {
+        opacity: 0.7;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Success state */
+      .form-success {
+        display: none;
+        text-align: center;
+        padding: 3rem 1.5rem;
+        animation: fadeUp 0.5s ease both;
+      }
+
+      .form-success.visible {
+        display: block;
+      }
+
+      .form-success-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--accent-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+        font-size: 24px;
+      }
+
+      .form-success h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-success p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--bg3);
+        border: 0.5px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--text);
+        z-index: 200;
+        opacity: 0;
+        transform: translateY(16px);
+        pointer-events: none;
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .toast.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .toast.error {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+
+      .contact-alt {
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 0.5px solid var(--border);
+      }
+
+      .contact-alt-text {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .contact-email-small {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.2s;
+        letter-spacing: -0.3px;
+      }
+
+      .contact-email-small:hover {
         color: var(--accent);
       }
 
@@ -606,7 +914,7 @@
         display: flex;
         justify-content: center;
         gap: 1.5rem;
-        margin-top: 2rem;
+        margin-top: 1.25rem;
       }
 
       .social-link {
@@ -680,13 +988,20 @@
           gap: 1.5rem;
           flex-wrap: wrap;
         }
+        .form-submit-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .btn-submit {
+          width: 100%;
+        }
       }
     </style>
   </head>
   <body>
     <!-- NAV -->
     <nav>
-      <div class="nav-logo">Dev<span>.</span></div>
+      <div class="nav-logo">Dylan<span>.</span></div>
       <ul class="nav-links">
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -701,37 +1016,50 @@
       <div class="hero-grid-bg"></div>
       <div class="hero-glow"></div>
 
-      <div class="hero-tag">Available for work</div>
+      <!-- Inner flex container for two columns -->
+      <div class="hero-inner">
+        <!-- LEFT COLUMN – all text -->
+        <div class="hero-content">
+          <div class="hero-tag">Available for work</div>
 
-      <h1 class="hero-name">
-        Full-Stack<br />
-        <span class="line2">Engineer.</span>
-      </h1>
+          <h1 class="hero-name">
+            Full-Stack<br />
+            <span class="line2">Engineer.</span>
+          </h1>
 
-      <p class="hero-desc">
-        I build high-impact websites and digital products for businesses that
-        want to grow online. From responsive marketing sites to product
-        platforms, I help companies like Marvel Kigali turn visitors into
-        customers.
-      </p>
+          <p class="hero-desc">
+            I build high-impact websites and digital products for businesses
+            that want to grow online. From responsive marketing sites to product
+            platforms, I help companies like Marvel Kigali turn visitors into
+            customers.
+          </p>
 
-      <div class="hero-btns">
-        <a href="#projects" class="btn-primary">Explore Work</a>
-        <a href="#contact" class="btn-secondary">Start a Project</a>
-      </div>
+          <div class="hero-btns">
+            <a href="#projects" class="btn-primary">Explore Work</a>
+            <a href="#contact" class="btn-secondary">Start a Project</a>
+          </div>
 
-      <div class="hero-stats">
-        <div>
-          <div class="stat-num">5<span>+</span></div>
-          <div class="stat-label">Projects Built</div>
+          <div class="hero-stats">
+            <div>
+              <div class="stat-num">5<span>+</span></div>
+              <div class="stat-label">Projects Built</div>
+            </div>
+            <div>
+              <div class="stat-num">4<span>+</span></div>
+              <div class="stat-label">Industries</div>
+            </div>
+            <div>
+              <div class="stat-num">3<span>×</span></div>
+              <div class="stat-label">AI & Marketing Projects</div>
+            </div>
+          </div>
         </div>
-        <div>
-          <div class="stat-num">4<span>+</span></div>
-          <div class="stat-label">Industries</div>
-        </div>
-        <div>
-          <div class="stat-num">3<span>×</span></div>
-          <div class="stat-label">AI & Marketing Projects</div>
+
+        <!-- RIGHT COLUMN – profile photo -->
+        <div class="hero-image">
+          <div class="profile-circle">
+            <img src="assets/me.jpeg" alt="Dylan's photo" />
+          </div>
         </div>
       </div>
     </div>
@@ -817,7 +1145,7 @@
         <!-- HR System -->
         <div class="project-card">
           <div class="project-card-top">
-            <span class="project-badge badge-live">Live</span>
+            <span class="project-badge badge-live">On sale</span>
           </div>
           <div class="project-title">HR Management System</div>
           <div class="project-desc">
@@ -840,7 +1168,6 @@
         <!-- Marketplace -->
         <div class="project-card">
           <div class="project-card-top">
-            <div class="project-icon icon-mkt"></div>
             <span class="project-badge badge-live">Live</span>
           </div>
           <div class="project-title">Tech Equipment Marketplace</div>
@@ -915,7 +1242,7 @@
           <p>
             I'm a <strong>full-stack software engineer</strong> passionate about
             building products that solve real problems. From web applications to
-            mobile apps. I enjoy working on projects that challenge me to learn
+            mobile apps, I enjoy working on projects that challenge me to learn
             and grow as a developer.
           </p>
           <p>
@@ -930,42 +1257,99 @@
         </div>
       </div>
 
+      <!-- EXPERIENCE (redesigned from "Journey" timeline) -->
       <div class="reveal">
-        <div class="section-eyebrow" style="margin-bottom: 1rem">Journey</div>
-        <p class="timeline-intro">
-          My path is built around product outcomes: digital marketing sites,
-          customer-facing portals, and AI-enhanced applications that help teams
-          sell, scale, and automate.
-        </p>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-year">2024 - Now</div>
-            <div>
-              <div class="timeline-role">Marketing & Brand Websites</div>
-              <div class="timeline-place">
-                Built responsive digital marketing sites for small businesses
-                and agencies, including Marvel Kigali.
-              </div>
+        <div class="section-eyebrow" style="margin-bottom: 1.5rem">
+          Experience
+        </div>
+        <div class="experience-list">
+          <!-- Card 1 -->
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <span class="exp-year">2024 – Now</span>
+              <span class="exp-role">E-commerce Project</span>
+            </div>
+            <span class="exp-company">Spar · Kigali, Rwanda</span>
+            <ul class="exp-details">
+              <li>
+                Built responsive digital marketing websites for small businesses
+                and agencies, including <strong>Marvel Kigali</strong>
+              </li>
+              <li>
+                Designed conversion-focused layouts with strong CTAs, service
+                messaging, and lead capture forms
+              </li>
+              <li>
+                Improved client inquiry rates through SEO-optimized copy and
+                fast-loading pages
+              </li>
+            </ul>
+            <div class="exp-tech">
+              <span class="exp-tech-tag">React</span>
+              <span class="exp-tech-tag">JavaScript</span>
+              <span class="exp-tech-tag">HTML/CSS</span>
+              <span class="exp-tech-tag">SEO</span>
             </div>
           </div>
-          <div class="timeline-item">
-            <div class="timeline-year">2023</div>
-            <div>
-              <div class="timeline-role">Full-Stack SaaS Launches</div>
-              <div class="timeline-place">
-                Delivered business tools like HR systems and marketplaces with
-                React, Node.js, and scalable backend APIs.
-              </div>
+
+          <!-- Card 2 -->
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <span class="exp-year">2023</span>
+              <span class="exp-role">Full-Stack SaaS Launches</span>
+            </div>
+            <span class="exp-company">Independent Projects</span>
+            <ul class="exp-details">
+              <li>
+                Delivered business tools like
+                <strong>HR Management System</strong> and
+                <strong>Tech Marketplace</strong> with React, Node.js, and
+                PostgreSQL
+              </li>
+              <li>
+                Designed RESTful APIs and database schemas for multi-tenant SaaS
+                applications
+              </li>
+              <li>
+                Integrated authentication, role-based access, and real-time data
+                workflows
+              </li>
+            </ul>
+            <div class="exp-tech">
+              <span class="exp-tech-tag">React</span>
+              <span class="exp-tech-tag">Node.js</span>
+              <span class="exp-tech-tag">PostgreSQL</span>
+              <span class="exp-tech-tag">MongoDB</span>
+              <span class="exp-tech-tag">REST APIs</span>
             </div>
           </div>
-          <div class="timeline-item">
-            <div class="timeline-year">2022</div>
-            <div>
-              <div class="timeline-role">Started Shipping Products</div>
-              <div class="timeline-place">
-                Focused on clean front-end experiences, strong backend
-                integration, and reliable database-driven workflows.
-              </div>
+
+          <!-- Card 3 -->
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <span class="exp-year">2022</span>
+              <span class="exp-role">Started Shipping Products</span>
+            </div>
+            <span class="exp-company">Early Career</span>
+            <ul class="exp-details">
+              <li>
+                Focused on clean front-end experiences with strong backend
+                integration
+              </li>
+              <li>
+                Built database-driven applications with user authentication,
+                CRUD operations, and responsive UIs
+              </li>
+              <li>
+                Established foundation in full-stack development and version
+                control (Git)
+              </li>
+            </ul>
+            <div class="exp-tech">
+              <span class="exp-tech-tag">JavaScript</span>
+              <span class="exp-tech-tag">HTML/CSS</span>
+              <span class="exp-tech-tag">Firebase</span>
+              <span class="exp-tech-tag">Git</span>
             </div>
           </div>
         </div>
@@ -997,24 +1381,122 @@
         Open to full-time roles, freelance, and collaborations
       </p>
 
-      <a href="mailto:hirwadylan12@gmail.com" class="contact-email reveal"
-        >hirwadylan12@gmail.com</a
-      >
+      <!-- FORM -->
+      <div class="contact-form-wrapper reveal">
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-input"
+              placeholder="Your name"
+              required
+              autocomplete="name"
+            />
+            <span class="form-error-msg" id="nameError"
+              >Please enter your name.</span
+            >
+          </div>
 
-      <div class="social-links reveal">
-        <a
-          href="https://github.com/hdylan12/"
-          target="_blank"
-          class="social-link"
-          >GitHub</a
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              class="form-input"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            />
+            <span class="form-error-msg" id="emailError"
+              >Please enter a valid email address.</span
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject</label>
+            <input
+              type="text"
+              id="subject"
+              class="form-input"
+              placeholder="Project inquiry, collaboration, etc."
+              required
+            />
+            <span class="form-error-msg" id="subjectError"
+              >Please enter a subject.</span
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea
+              id="message"
+              class="form-textarea"
+              placeholder="Tell me about your project, timeline, and goals..."
+              required
+              minlength="20"
+            ></textarea>
+            <span class="form-error-msg" id="messageError">
+              Please write at least 20 characters.
+            </span>
+          </div>
+
+          <div class="form-submit-row">
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span class="spinner"></span>
+              <span class="btn-submit-text">Send Message</span>
+            </button>
+            <span
+              style="
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 10px;
+                color: var(--muted);
+                letter-spacing: 1px;
+              "
+            >
+              I'll respond within 24h
+            </span>
+          </div>
+        </form>
+
+        <!-- Success message (hidden by default) -->
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">✓</div>
+          <h3>Message sent!</h3>
+          <p>Thanks for reaching out. I'll get back to you within 24 hours.</p>
+        </div>
+      </div>
+
+      <!-- Alternative contact -->
+      <div class="contact-alt reveal">
+        <p class="contact-alt-text">Or reach me directly</p>
+        <a href="mailto:hirwadylan12@gmail.com" class="contact-email-small"
+          >hirwadylan12@gmail.com</a
         >
-        <a
-          href="https://www.linkedin.com/in/nhdylan/"
-          target="_blank"
-          class="social-link"
-          >LinkedIn</a
-        >
-        <a href="#" class="social-link">Resume</a>
+        <div class="social-links">
+          <a
+            href="https://github.com/hdylan12/"
+            target="_blank"
+            rel="noopener"
+            class="social-link"
+            >GitHub</a
+          >
+          <a
+            href="https://www.linkedin.com/in/nhdylan/"
+            target="_blank"
+            rel="noopener"
+            class="social-link"
+            >LinkedIn</a
+          >
+          <a
+            href="assets/resume.pdf"
+            class="social-link"
+            target="_blank"
+            rel="noopener"
+            >Resume</a
+          >
+        </div>
       </div>
     </section>
 
@@ -1022,8 +1504,11 @@
       <p>Dylan Dev &nbsp;·&nbsp; © 2026</p>
     </footer>
 
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
     <script>
-      // Scroll reveal
+      // ─── Scroll reveal ────────────────────────────
       const reveals = document.querySelectorAll(".reveal");
       const observer = new IntersectionObserver(
         (entries) => {
@@ -1036,6 +1521,168 @@
         { threshold: 0.1 },
       );
       reveals.forEach((el) => observer.observe(el));
+
+      // ─── Toast helper ─────────────────────────────
+      const toast = document.getElementById("toast");
+      let toastTimer;
+
+      function showToast(message, isError = false) {
+        clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.className = "toast" + (isError ? " error" : "");
+        // Force reflow
+        void toast.offsetWidth;
+        toast.classList.add("visible");
+        toastTimer = setTimeout(() => {
+          toast.classList.remove("visible");
+        }, 4000);
+      }
+
+      // ─── Contact form ────────────────────────────
+      const form = document.getElementById("contactForm");
+      const formSuccess = document.getElementById("formSuccess");
+      const submitBtn = document.getElementById("submitBtn");
+
+      // Input elements & error spans
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const subjectInput = document.getElementById("subject");
+      const messageInput = document.getElementById("message");
+
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const subjectError = document.getElementById("subjectError");
+      const messageError = document.getElementById("messageError");
+
+      function clearErrors() {
+        [nameInput, emailInput, subjectInput, messageInput].forEach((el) =>
+          el.classList.remove("error"),
+        );
+        [nameError, emailError, subjectError, messageError].forEach((el) =>
+          el.classList.remove("visible"),
+        );
+      }
+
+      function showFieldError(input, errorSpan) {
+        input.classList.add("error");
+        errorSpan.classList.add("visible");
+      }
+
+      function validateForm() {
+        clearErrors();
+        let isValid = true;
+
+        if (!nameInput.value.trim()) {
+          showFieldError(nameInput, nameError);
+          isValid = false;
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (
+          !emailInput.value.trim() ||
+          !emailPattern.test(emailInput.value.trim())
+        ) {
+          showFieldError(emailInput, emailError);
+          isValid = false;
+        }
+
+        if (!subjectInput.value.trim()) {
+          showFieldError(subjectInput, subjectError);
+          isValid = false;
+        }
+
+        if (
+          !messageInput.value.trim() ||
+          messageInput.value.trim().length < 20
+        ) {
+          showFieldError(messageInput, messageError);
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      // Real-time clearing of errors
+      [nameInput, emailInput, subjectInput, messageInput].forEach((input) => {
+        input.addEventListener("input", () => {
+          input.classList.remove("error");
+          const errorSpan = document.getElementById(input.id + "Error");
+          if (errorSpan) errorSpan.classList.remove("visible");
+        });
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+          showToast("Please fix the errors above before submitting.", true);
+          return;
+        }
+
+        // Show loading state
+        submitBtn.classList.add("loading");
+        submitBtn.disabled = true;
+
+        const FORM_ENDPOINT = "https://formspree.io/f/mjgqvwpe";
+
+        const formData = {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          subject: subjectInput.value.trim(),
+          message: messageInput.value.trim(),
+        };
+
+        if (FORM_ENDPOINT) {
+          // Real submission
+          try {
+            const response = await fetch(FORM_ENDPOINT, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+              // Success
+              form.style.display = "none";
+              formSuccess.classList.add("visible");
+              showToast("Message sent successfully! 🎉");
+            } else {
+              throw new Error("Server responded with an error.");
+            }
+          } catch (err) {
+            console.error("Form submission error:", err);
+            showToast(
+              "Something went wrong. Please email me directly at hirwadylan12@gmail.com",
+              true,
+            );
+          } finally {
+            submitBtn.classList.remove("loading");
+            submitBtn.disabled = false;
+          }
+        } else {
+          // Simulated submission (demo mode)
+          // In production, set FORM_ENDPOINT to a real service URL
+          await new Promise((resolve) => setTimeout(resolve, 1200)); // simulate network
+
+          form.style.display = "none";
+          formSuccess.classList.add("visible");
+          showToast(
+            "Message sent successfully! 🎉 (Demo mode — connect a real endpoint)",
+          );
+
+          submitBtn.classList.remove("loading");
+          submitBtn.disabled = false;
+
+          // Log for your reference
+          console.log("📬 Form data (demo mode):", formData);
+          console.log(
+            "💡 To make this live, set FORM_ENDPOINT in the script to your Formspree or Web3Forms URL.",
+          );
+        }
+      });
     </script>
   </body>
 </html>
