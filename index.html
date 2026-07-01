@@ -452,6 +452,16 @@
         background: var(--bg3);
       }
 
+      .project-preview {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 0.5px solid var(--border);
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+
       .project-card.featured {
         grid-column: span 2;
         background: linear-gradient(
@@ -561,57 +571,108 @@
       /* ---- ABOUT ---- */
       #about {
         border-top: 0.5px solid var(--border);
+      }
+
+      .about-shell {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 1.5rem;
         align-items: start;
       }
 
-      @media (max-width: 700px) {
-        #about {
-          grid-template-columns: 1fr;
-        }
+      .about-card,
+      .experience-panel {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.025),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 2rem;
       }
 
-      .about-text p {
+      .about-card .section-title {
+        margin-bottom: 1.25rem;
+      }
+
+      .about-copy p {
         font-size: 15px;
         color: var(--muted);
         line-height: 1.8;
         margin-bottom: 1rem;
       }
 
-      .about-text p strong {
+      .about-copy p strong {
         color: var(--text);
-        font-weight: 500;
+        font-weight: 600;
       }
 
-      /* ---- EXPERIENCE (replaces old timeline) ---- */
+      .about-highlights {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .about-highlight {
+        padding: 0.9rem;
+        background: var(--bg2);
+        border: 0.5px solid var(--border);
+        border-radius: 12px;
+      }
+
+      .about-highlight-label {
+        display: block;
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.35rem;
+      }
+
+      .about-highlight-value {
+        font-size: 14px;
+        color: var(--text);
+        line-height: 1.4;
+      }
+
+      .experience-panel .section-eyebrow {
+        margin-bottom: 1.5rem;
+      }
+
       .experience-list {
         display: flex;
         flex-direction: column;
-        gap: 0;
+        gap: 1rem;
       }
 
-      .exp-card {
-        position: relative;
-        padding: 1.5rem 0;
+      .experience-item {
+        padding: 1rem 0;
         border-bottom: 0.5px solid var(--border);
-        transition: background 0.2s;
       }
 
-      .exp-card:first-child {
-        padding-top: 0;
+      .experience-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
       }
 
-      .exp-card-header {
+      .experience-top {
         display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 0.6rem;
-        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 0.45rem;
       }
 
-      .exp-year {
+      .experience-role {
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+      }
+
+      .experience-year {
         font-family: "DM Mono", monospace;
         font-size: 10px;
         letter-spacing: 2px;
@@ -619,55 +680,32 @@
         color: var(--accent);
         background: var(--accent-bg);
         padding: 3px 10px;
-        border-radius: 3px;
+        border-radius: 999px;
         white-space: nowrap;
       }
 
-      .exp-role {
-        font-size: 17px;
-        font-weight: 700;
-        letter-spacing: -0.3px;
-      }
-
-      .exp-company {
+      .experience-company {
         font-family: "DM Mono", monospace;
         font-size: 11px;
         color: var(--muted);
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.65rem;
         display: block;
       }
 
-      .exp-details {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 0.75rem 0;
-      }
-
-      .exp-details li {
+      .experience-summary {
         font-size: 13px;
         color: var(--muted);
         line-height: 1.7;
-        padding-left: 18px;
-        position: relative;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.7rem;
       }
 
-      .exp-details li::before {
-        content: "▹";
-        position: absolute;
-        left: 0;
-        top: 0;
-        color: var(--accent);
-        font-size: 11px;
-      }
-
-      .exp-tech {
+      .experience-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
       }
 
-      .exp-tech-tag {
+      .experience-tag {
         font-family: "DM Mono", monospace;
         font-size: 10px;
         padding: 3px 9px;
@@ -675,6 +713,32 @@
         border: 0.5px solid var(--border);
         border-radius: 3px;
         color: var(--muted);
+      }
+
+      @media (max-width: 900px) {
+        .about-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .about-highlights {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 600px) {
+        .about-card,
+        .experience-panel {
+          padding: 1.5rem;
+        }
+
+        .about-highlights {
+          grid-template-columns: 1fr;
+        }
+
+        .experience-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
       }
 
       /* ---- CONTACT FORM ---- */
@@ -1020,7 +1084,7 @@
       <div class="hero-inner">
         <!-- LEFT COLUMN – all text -->
         <div class="hero-content">
-          <div class="hero-tag">Available for work</div>
+          <div class="hero-tag">Founder & Full Stack Engineer</div>
 
           <h1 class="hero-name">
             Full-Stack<br />
@@ -1124,6 +1188,11 @@
           <div class="project-card-top">
             <span class="project-badge badge-live">Live</span>
           </div>
+          <img
+            src="assets/marvel.png"
+            alt="Marvel Kigali project preview"
+            class="project-preview"
+          />
           <div class="project-title">Marvel Kigali</div>
           <div class="project-desc">
             A polished digital marketing website built for Marvel Kigali to help
@@ -1138,7 +1207,13 @@
             <span class="stack-tag">Contact Forms</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">View Site →</a>
+            <a
+              href="assets/marvel.png"
+              target="_blank"
+              rel="noopener"
+              class="project-link"
+              >View Screenshot →</a
+            >
           </div>
         </div>
 
@@ -1147,6 +1222,11 @@
           <div class="project-card-top">
             <span class="project-badge badge-live">On sale</span>
           </div>
+          <img
+            src="assets/hrsystem.png"
+            alt="HR Management System project preview"
+            class="project-preview"
+          />
           <div class="project-title">HR Management System</div>
           <div class="project-desc">
             Full-stack business tool for managing employees, payroll, leave, and
@@ -1160,8 +1240,13 @@
             <span class="stack-tag">REST API</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">GitHub →</a>
-            <a href="#" class="project-link">Live →</a>
+            <a
+              href="assets/hrsystem.png"
+              target="_blank"
+              rel="noopener"
+              class="project-link"
+              >View Screenshot →</a
+            >
           </div>
         </div>
 
@@ -1182,8 +1267,7 @@
             <span class="stack-tag">MongoDB</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">GitHub →</a>
-            <a href="#" class="project-link">Live →</a>
+            <a href="coming-soon.html" class="project-link">Coming Soon →</a>
           </div>
         </div>
 
@@ -1205,7 +1289,7 @@
             <span class="stack-tag">PostgreSQL</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">Demo →</a>
+            <a href="coming-soon.html" class="project-link">Coming Soon →</a>
           </div>
         </div>
 
@@ -1227,129 +1311,121 @@
             <span class="stack-tag">Docker</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">GitHub →</a>
+            <a href="coming-soon.html" class="project-link">Coming Soon →</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" style="max-width: 1100px; margin: 0 auto">
-      <div class="about-text">
-        <div class="section-eyebrow reveal">About</div>
-        <h2 class="section-title reveal">Who I am</h2>
-        <div class="reveal">
-          <p>
-            I'm a <strong>full-stack software engineer</strong> passionate about
-            building products that solve real problems. From web applications to
-            mobile apps, I enjoy working on projects that challenge me to learn
-            and grow as a developer.
-          </p>
-          <p>
-            I care about <strong>clean architecture</strong>, good UX, and
-            shipping things that actually work. Currently exploring the
-            intersection of <strong>AI and mobile development</strong>.
-          </p>
-          <p>
-            Based in <strong>Kigali, Rwanda</strong> — open to remote
-            opportunities worldwide and local collaborations.
-          </p>
-        </div>
-      </div>
-
-      <!-- EXPERIENCE (redesigned from "Journey" timeline) -->
-      <div class="reveal">
-        <div class="section-eyebrow" style="margin-bottom: 1.5rem">
-          Experience
-        </div>
-        <div class="experience-list">
-          <!-- Card 1 -->
-          <div class="exp-card">
-            <div class="exp-card-header">
-              <span class="exp-year">2024 – Now</span>
-              <span class="exp-role">E-commerce Project</span>
-            </div>
-            <span class="exp-company">Spar · Kigali, Rwanda</span>
-            <ul class="exp-details">
-              <li>
-                Built responsive digital marketing websites for small businesses
-                and agencies, including <strong>Marvel Kigali</strong>
-              </li>
-              <li>
-                Designed conversion-focused layouts with strong CTAs, service
-                messaging, and lead capture forms
-              </li>
-              <li>
-                Improved client inquiry rates through SEO-optimized copy and
-                fast-loading pages
-              </li>
-            </ul>
-            <div class="exp-tech">
-              <span class="exp-tech-tag">React</span>
-              <span class="exp-tech-tag">JavaScript</span>
-              <span class="exp-tech-tag">HTML/CSS</span>
-              <span class="exp-tech-tag">SEO</span>
-            </div>
+    <section
+      id="about"
+      style="max-width: 1100px; margin: 0 auto; padding-top: 6rem"
+    >
+      <div class="about-shell">
+        <div class="about-card reveal">
+          <div class="section-eyebrow">About</div>
+          <h2 class="section-title">
+            Building thoughtful products with craft, clarity, and momentum.
+          </h2>
+          <div class="about-copy">
+            <p>
+              I’m a <strong>full-stack software engineer</strong> focused on
+              turning ideas into polished digital products that feel effortless
+              to use and valuable to grow with.
+            </p>
+            <p>
+              My work blends <strong>clean architecture</strong>, thoughtful UX,
+              and practical execution to ship solutions that are both reliable
+              and user-friendly.
+            </p>
+            <p>
+              Based in <strong>Kigali, Rwanda</strong>, I work with founders,
+              teams, and businesses that want high-quality products built with
+              care.
+            </p>
           </div>
 
-          <!-- Card 2 -->
-          <div class="exp-card">
-            <div class="exp-card-header">
-              <span class="exp-year">2023</span>
-              <span class="exp-role">Full-Stack SaaS Launches</span>
+          <div class="about-highlights">
+            <div class="about-highlight">
+              <span class="about-highlight-label">Focus</span>
+              <span class="about-highlight-value">Product engineering</span>
             </div>
-            <span class="exp-company">Independent Projects</span>
-            <ul class="exp-details">
-              <li>
-                Delivered business tools like
-                <strong>HR Management System</strong> and
-                <strong>Tech Marketplace</strong> with React, Node.js, and
-                PostgreSQL
-              </li>
-              <li>
-                Designed RESTful APIs and database schemas for multi-tenant SaaS
-                applications
-              </li>
-              <li>
-                Integrated authentication, role-based access, and real-time data
-                workflows
-              </li>
-            </ul>
-            <div class="exp-tech">
-              <span class="exp-tech-tag">React</span>
-              <span class="exp-tech-tag">Node.js</span>
-              <span class="exp-tech-tag">PostgreSQL</span>
-              <span class="exp-tech-tag">MongoDB</span>
-              <span class="exp-tech-tag">REST APIs</span>
+            <div class="about-highlight">
+              <span class="about-highlight-label">Location</span>
+              <span class="about-highlight-value">Kigali, Rwanda</span>
+            </div>
+            <div class="about-highlight">
+              <span class="about-highlight-label">Now exploring</span>
+              <span class="about-highlight-value">AI + mobile</span>
             </div>
           </div>
+        </div>
 
-          <!-- Card 3 -->
-          <div class="exp-card">
-            <div class="exp-card-header">
-              <span class="exp-year">2022</span>
-              <span class="exp-role">Started Shipping Products</span>
+        <div class="experience-panel reveal">
+          <div class="section-eyebrow">Experience</div>
+          <div class="experience-list">
+            <div class="experience-item">
+              <div class="experience-top">
+                <div class="experience-role">
+                  Founder & Full-Stack Developer
+                </div>
+                <span class="experience-year">2025 — Now</span>
+              </div>
+              <span class="experience-company"
+                >Pocket Lens · Fintech Startup</span
+              >
+              <p class="experience-summary">
+                Designing and building a personal finance app with AI-powered
+                insights, budgeting tools, and clean mobile-first experiences.
+              </p>
+              <div class="experience-tags">
+                <span class="experience-tag">React Native</span>
+                <span class="experience-tag">Node.js</span>
+                <span class="experience-tag">PostgreSQL</span>
+                <span class="experience-tag">OpenAI API</span>
+              </div>
             </div>
-            <span class="exp-company">Early Career</span>
-            <ul class="exp-details">
-              <li>
-                Focused on clean front-end experiences with strong backend
-                integration
-              </li>
-              <li>
-                Built database-driven applications with user authentication,
-                CRUD operations, and responsive UIs
-              </li>
-              <li>
-                Established foundation in full-stack development and version
-                control (Git)
-              </li>
-            </ul>
-            <div class="exp-tech">
-              <span class="exp-tech-tag">JavaScript</span>
-              <span class="exp-tech-tag">HTML/CSS</span>
-              <span class="exp-tech-tag">Firebase</span>
-              <span class="exp-tech-tag">Git</span>
+
+            <div class="experience-item">
+              <div class="experience-top">
+                <div class="experience-role">Founder & Lead Developer</div>
+                <span class="experience-year">2025 — Now</span>
+              </div>
+              <span class="experience-company"
+                >MyTech All in One · Software Agency</span
+              >
+              <p class="experience-summary">
+                Leading end-to-end delivery for client projects, from product
+                discovery and architecture to implementation and launch.
+              </p>
+              <div class="experience-tags">
+                <span class="experience-tag">React</span>
+                <span class="experience-tag">Node.js</span>
+                <span class="experience-tag">Vue.js</span>
+                <span class="experience-tag">Flutter</span>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-top">
+                <div class="experience-role">Product Engineer</div>
+                <span class="experience-year">2024 — 2025</span>
+              </div>
+              <span class="experience-company"
+                >Independent Projects · Kigali</span
+              >
+              <p class="experience-summary">
+                Delivered marketing sites, business tools, and digital products
+                with strong UI systems, conversion-focused design, and reliable
+                backend integration.
+              </p>
+              <div class="experience-tags">
+                <span class="experience-tag">React</span>
+                <span class="experience-tag">JavaScript</span>
+                <span class="experience-tag">PostgreSQL</span>
+                <span class="experience-tag">SEO</span>
+              </div>
             </div>
           </div>
         </div>
